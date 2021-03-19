@@ -1,0 +1,107 @@
+{% extends 'job/common/base.html' %}
+{% block nav %}
+    {% include 'job/recruiter/recruiter_nav.html' %}
+{% endblock %}
+{% block content %}
+    <script>
+        function checkPassword() {
+            if (document.signup.pwd.value !== document.signup.cpwd.value) {
+                alert('Password and Confirm Password do not match.');
+                document.signup.cpwd.focus();
+                return false;
+            }
+            return true;
+        }
+    </script>
+
+    <div class="row justify-content-center">
+        <div class="card shadow">
+            <div class="card-header text-center bg-dark">
+                <h4 class="text-white">Edit job</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" action="" enctype="multipart/form-data" name="">
+                    {% csrf_token %}
+                    <div class="form-row text-center">
+                        <div class="form-group col-md-12">
+                            <img src="{{ job.image.url }}" width="100" height="100" class="rounded-circle" alt="">
+                            <div>
+                                <a href="" class="">Change Company Logo</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="exampleInputJob1">Job Title</label>
+                            <input name="title" type="text" class="form-control" id="exampleInputJob1"
+                                   value="{{ job.title }}" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputStartdate1">Start Date</label> <span
+                                class="text-danger">[{{ job.start_date }}]</span>
+                            <input name="startdate" type="date" class="form-control" id="exampleInputStartdate1"
+                                   required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputEnddate1">End Date</label> <span
+                                class="text-danger">[{{ job.end_date }}]</span>
+                            <input name="enddate" type="date" class="form-control" id="exampleInputEnddate1" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="exampleInputSalary1">Salary (Per Month)</label>
+                            <input name="salary" type="text" class="form-control" id="exampleInputSalary1"
+                                   value="{{ job.salary }}" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputExp1">Experience (In Years)</label>
+                            <input name="exp" type="text" class="form-control" id="exampleInputExp1"
+                                   value="{{ job.experience }}" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputLocation1">Location</label>
+                            <input name="location" type="text" class="form-control" id="exampleInputLocation1"
+                                   value="{{ job.location }}" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="exampleInputSkill1">Skills</label>
+                            <input name="skills" type="text" class="form-control" id="exampleInputSkill1"
+                                   value="{{ job.skills }}" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="exampleInputDesc1">Description</label>
+                            <textarea name="desc" type="text" class="form-control" id="exampleInputDesc1"
+                                      rows="3">{{ job.description }}</textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-block btn-secondary">Save</button>
+                </form>
+            </div>
+            <div class="card-footer">
+                <a class="btn btn-info" href="{% url 'job_list' %}">Cancel</a>
+            </div>
+        </div>
+    </div>
+
+    {% ifequal error "no" %}
+        <script>
+            alert("Job Updated Successfully")
+            window.location = ("{% url 'edit_job' job.id %}");
+        </script>
+    {% endifequal %}
+
+    {% ifequal error "yes" %}
+        <script>
+            alert("Something went wrong. Try again...");
+        </script>
+    {% endifequal %}
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'job/common/base.html' %}
+{% block nav %}
+    {% include 'job/admin/admin_nav.html' %}
+{% endblock %}
+{% block content %}
+    <h2 class="text-center">Accepted Recruiters</h2>
+    <hr class="my-4">
+    <table id="example" class="table display" style="width:100%">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Image</th>
+            <th>Full Name</th>
+            <th>Company</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for r in recruiters %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>
+                    <img src="{{ r.image.url }}" class="rounded-circle" width="100" height="100" alt="">
+                </td>
+                <td>{{ r.user.last_name }} {{ r.user.first_name }}</td>
+                <td>{{ r.company }}</td>
+                <td>{{ r.user.username }}</td>
+                <td>{{ r.mobile }}</td>
+                <td class="text-capitalize text-success">{{ r.status }}</td>
+                <td>
+                    <a href="{% url 'change_status' r.id %}" class="btn btn-sm btn-danger">
+                        Change Status
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

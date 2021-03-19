@@ -1,0 +1,35 @@
+{% extends 'job/common/base.html' %}
+{% block nav %}
+    {% include 'job/recruiter/recruiter_nav.html' %}
+{% endblock %}
+{% block content %}
+    <h2 class="text-center">List of Jobs</h2>
+    <hr class="my-4">
+    <table id="example" class="table text-center display" style="width:100%">
+        <thead class="thead-dark">
+        <tr>
+            <th>#</th>
+            <th>Job</th>
+            <th>Date Created</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for j in jobs %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ j.title }}</td>
+                <td>{{ j.created }}</td>
+                <td>
+                    <a href="{% url 'edit_job' j.id %}" class="btn btn-sm btn-info">
+                        <i class="fas fa-pen"></i>
+                    </a>
+                    <a href="{% url 'delete_job' j.id %}" class="btn btn-sm btn-danger">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

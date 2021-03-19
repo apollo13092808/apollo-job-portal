@@ -1,0 +1,47 @@
+body {
+    font-family: 'Playfair Display', serif;
+}
+
+header, footer, nav {
+    font-family: 'Xanh Mono', monospace;
+}
+
+.navbar-brand {
+    color: #d89216 !important;
+}
+
+#btn-search {
+    color: #d89216 !important;
+    border-color: #d89216 !important;
+}
+
+#btn-search:hover {
+    color: whitesmoke !important;
+    background-color: #d89216 !important;
+}
+
+.main-color {
+    color: #d89216 !important;
+}
+
+.bg-main-color {
+    background-color: #d89216 !important;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Small devices (landscape phones, 576px and down)*/
+@media (max-width: 576px) {
+    .my-form-width {
+        width: 100% !important;
+    }
+}
+
+/*Medium devices (tablets, 768px and down)*/
+@media (max-width: 768px) {
+    .my-form-width {
+        width: 100% !important;
+    }
+}

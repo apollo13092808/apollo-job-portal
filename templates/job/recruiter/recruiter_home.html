@@ -1,0 +1,109 @@
+{% extends 'job/common/base.html' %}
+{% block nav %}
+    {% include 'job/recruiter/recruiter_nav.html' %}
+{% endblock %}
+{% block content %}
+    <h4 class="text-dark">Profile</h4>
+    <hr class="my-4">
+    <div class="row justify-content-center">
+        <div class="col-sm-4">
+            <img class="rounded-circle img-fluid img-thumbnail" height="300" width="300" src="{{ recruiter.image.url }}"
+                 alt="">
+        </div>
+        <div class="col-sm-6">
+            <form method="post" action="" enctype="multipart/form-data" name="signup">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputLN1">Last Name</label>
+                        <input name="lname" type="text" class="form-control" id="exampleInputLN1"
+                               value="{{ recruiter.user.last_name }}" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputFN1">First Name</label>
+                        <input name="fname" type="text" class="form-control" id="exampleInputFN1"
+                               value="{{ recruiter.user.first_name }}" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1">Email</label>
+                        <input name="email" type="email" class="form-control" id="exampleInputEmail1"
+                               value="{{ recruiter.user.username }}" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputMobile1">Mobile</label>
+                        <input name="mobile" type="text" class="form-control" id="exampleInputMobile1"
+                               value="{{ recruiter.mobile }}" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="exampleInputCompany1">Company</label>
+                        <input name="company" type="text" class="form-control" id="exampleInputCompany1"
+                               value="{{ recruiter.company }}" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Gender</label>
+                        {% if recruiter.gender == 'Male' %}
+                            <div style="border: 1px solid lightgrey; padding:7px; border-radius:5px; background-color: white;">
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="customRadioInline1" name="gender"
+                                           class="custom-control-input" value="Male" checked>
+                                    <label class="custom-control-label" for="customRadioInline1">
+                                        Male
+                                    </label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="customRadioInline2" name="gender"
+                                           class="custom-control-input" value="Female">
+                                    <label class="custom-control-label" for="customRadioInline2">
+                                        Female
+                                    </label>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div style="border: 1px solid lightgrey; padding:7px; border-radius:5px; background-color: white;">
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="customRadioInline1" name="gender"
+                                           class="custom-control-input" value="Male">
+                                    <label class="custom-control-label" for="customRadioInline1">
+                                        Male
+                                    </label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="customRadioInline2" name="gender"
+                                           class="custom-control-input" value="Female" checked>
+                                    <label class="custom-control-label" for="customRadioInline2">
+                                        Female
+                                    </label>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputImg1">Image</label>
+                        <input name="image" type="file" class="form-control" id="exampleInputImg1"
+                               placeholder="Upload Image...">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-block btn-secondary">Update</button>
+            </form>
+        </div>
+    </div>
+
+    {% ifequal error "no" %}
+        <script>
+            alert("Profile succesfully updated!");
+            window.location = ("{% url 'recruiter_home' %}");
+        </script>
+    {% endifequal %}
+
+    {% ifequal error "yes" %}
+        <script>
+            alert("Something went wrong. Try again...");
+        </script>
+    {% endifequal %}
+{% endblock %}

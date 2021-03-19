@@ -1,0 +1,52 @@
+{% extends 'job/common/base.html' %}
+{% block nav %}
+    {% include 'job/common/common_nav.html' %}
+{% endblock %}
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="card shadow" style="width:20rem;">
+            <div class="card-header text-center bg-dark">
+                <h4 class="text-white">Recruiter</h4>
+                <h3 class="text-info">Login Form</h3>
+            </div>
+            <div class="card-body">
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email</label>
+                        <input name="uname" type="email" class="form-control" id="exampleInputEmail1"
+                               placeholder="Enter email here...">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input name="pwd" type="password" class="form-control" id="exampleInputPassword1"
+                               placeholder="Enter password here...">
+                    </div>
+                    <button type="submit" class="btn btn-block btn-secondary">Login</button>
+                </form>
+            </div>
+            <div class="card-footer">
+                Don't have an account? <br>
+                <a class="text-info" href="{% url 'recruiter_signup' %}">Sign up here</a>
+            </div>
+        </div>
+    </div>
+
+    {% ifequal error "no" %}
+        <script>
+            window.location = ("{% url 'recruiter_home' %}");
+        </script>
+    {% endifequal %}
+
+    {% ifequal error "not" %}
+        <script>
+            alert("Your Login status is pending...");
+        </script>
+    {% endifequal %}
+
+    {% ifequal error "yes" %}
+        <script>
+            alert("Invalid email or password. Try again...");
+        </script>
+    {% endifequal %}
+{% endblock %}

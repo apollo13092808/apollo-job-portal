@@ -1,0 +1,118 @@
+{% extends 'job/common/base.html' %}
+{% block nav %}
+    {% include 'job/common/common_nav.html' %}
+{% endblock %}
+{% block content %}
+    <script>
+        function checkPassword() {
+            if (document.signup.pwd.value !== document.signup.cpwd.value) {
+                alert('Password and Confirm Password do not match.');
+                document.signup.cpwd.focus();
+                return false;
+            }
+            return true;
+        }
+    </script>
+
+    <div class="row justify-content-center">
+        <div class="card shadow">
+            <div class="card-header text-center bg-dark">
+                <h4 class="text-white">Recruiter</h4>
+                <h3 class="text-info">Registration Form</h3>
+            </div>
+            <div class="card-body">
+                <form method="post" action="" enctype="multipart/form-data" name="signup"
+                      onsubmit="return checkPassword();">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputLN1">Last Name</label>
+                            <input name="lname" type="text" class="form-control" id="exampleInputLN1"
+                                   placeholder="Enter last name..." required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputFN1">First Name</label>
+                            <input name="fname" type="text" class="form-control" id="exampleInputFN1"
+                                   placeholder="Enter first name..." required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputEmail1">Email</label>
+                            <input name="email" type="email" class="form-control" id="exampleInputEmail1"
+                                   placeholder="Ex: abc@gmail.com" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputMobile1">Mobile</label>
+                            <input name="mobile" type="text" class="form-control" id="exampleInputMobile1"
+                                   placeholder="Ex: 0777332897" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="exampleInputCompany1">Company</label>
+                            <input name="company" type="text" class="form-control" id="exampleInputCompany1"
+                                   placeholder="Enter company name..." required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputPwd1">Password</label>
+                            <input name="pwd" type="password" class="form-control" id="exampleInputPwd1"
+                                   placeholder="Enter password..." required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputCpwd1">Confirm Password</label>
+                            <input name="cpwd" type="password" class="form-control" id="exampleInputCpwd1"
+                                   placeholder="Enter password again..." required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>Gender</label>
+                            <div style="border: 1px solid lightgrey; padding:7px; border-radius:5px;">
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="customRadioInline1" name="gender"
+                                           class="custom-control-input" value="Male">
+                                    <label class="custom-control-label" for="customRadioInline1">
+                                        Male
+                                    </label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="customRadioInline2" name="gender"
+                                           class="custom-control-input" value="Female">
+                                    <label class="custom-control-label" for="customRadioInline2">
+                                        Female
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputImg1">Image</label>
+                            <input name="image" type="file" class="form-control" id="exampleInputImg1"
+                                   placeholder="Upload Image...">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-block btn-secondary">Register</button>
+                </form>
+            </div>
+            <div class="card-footer">
+                Already have an account? <br>
+                <a class="text-info" href="{% url 'recruiter_login' %}">Sign in here</a>
+            </div>
+        </div>
+    </div>
+
+    {% ifequal error "no" %}
+        <script>
+            alert("Succesfully signed up")
+            window.location = ("{% url 'recruiter_login' %}");
+        </script>
+    {% endifequal %}
+
+    {% ifequal error "yes" %}
+        <script>
+            alert("Something went wrong. Try again...");
+        </script>
+    {% endifequal %}
+{% endblock %}

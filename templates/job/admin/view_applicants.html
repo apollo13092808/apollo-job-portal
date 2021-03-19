@@ -1,0 +1,41 @@
+{% extends 'job/common/base.html' %}
+{% block nav %}
+    {% include 'job/admin/admin_nav.html' %}
+{% endblock %}
+{% block content %}
+    <h2 class="text-center">All Applicant Users</h2>
+    <hr class="my-4">
+    <table id="example" class="table display" style="width:100%">
+        <thead class="thead-dark">
+        <tr>
+            <th>#</th>
+            <th>Image</th>
+            <th>Full Name</th>
+            <th>Gender</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for a in applicants %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>
+                    <img src="{{ a.image.url }}" class="rounded-circle" width="100" height="100" alt="">
+                </td>
+                <td>{{ a.user.last_name }} {{ a.user.first_name }}</td>
+                <td>{{ a.gender }}</td>
+                <td>{{ a.user.username }}</td>
+                <td>{{ a.mobile }}</td>
+                <td>
+                    <a href="{% url 'delete_applicant' a.user.id %}" class="btn btn-sm btn-danger"
+                       onclick="return confirm('Are you sure you want to delete this applicant?')">
+                        <i class="far fa-trash-alt"></i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'job/common/base.html' %}
+{% block nav %}
+    {% include 'job/admin/admin_nav.html' %}
+{% endblock %}
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="card shadow" style="width:20rem;">
+            <div class="card-header text-center bg-dark">
+                <h4 class="text-white">Change Status
+                    of {{ recruiter.user.last_name }} {{ recruiter.user.first_name }}</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email</label>
+                        <input name="uname" type="text" class="form-control" id="exampleInputEmail1"
+                               value="{{ recruiter.user.username }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Status</label>
+                        <!--suppress HtmlFormInputWithoutLabel -->
+                        <select class="custom-select" name="status">
+                            <option selected>Select status</option>
+                            <option value="approved">Approve</option>
+                            <option value="rejected">Reject</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-block btn-secondary">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% ifequal error "no" %}
+        <script>
+            window.location = ("{% url 'view_recruiters' %}");
+        </script>
+    {% endifequal %}
+
+    {% ifequal error "yes" %}
+        <script>
+            alert("Something went wrong. Please try again...");
+        </script>
+    {% endifequal %}
+{% endblock %}
